@@ -310,4 +310,5 @@ function cart_item(){
     }
     echo $total;
   }
+
 ?>
