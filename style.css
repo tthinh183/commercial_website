@@ -24,3 +24,10 @@
     width: 50px;
     height: 50px;
 }
+.profile_img{
+    width: 90%;
+    margin: auto;
+    display: block;
+    height: 100%;
+    object-fit: contain;
+}
