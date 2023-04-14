@@ -29,7 +29,7 @@
             <!-- first child -->
             <nav class="navbar navbar-expand-lg bg-info">
   <div class="container-fluid">
-    <img src="./images/logo.jpg" alt="" class="logo">
+    <img src="../images/logo.jpg" alt="" class="logo">
     <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -81,11 +81,11 @@
         }
           if(!isset($_SESSION['username'])){
             echo "<li class='nav-item'>
-            <a class='nav-link' href='./user_area/user_login.php'>Login</a>
+            <a class='nav-link' href='./user_login.php'>Login</a>
       </li>";
           }else{
             echo "<li class='nav-item'>
-            <a class='nav-link' href='./user_area/logout.php'>Logout</a>
+            <a class='nav-link' href='logout.php'>Logout</a>
       </li>";
           }
         ?>
@@ -104,28 +104,44 @@
         <li class="nav-item">
           <a class="nav-link text-light bg-info" href="#"><h4>Your profile</h4></a>
         </li>
+        <?php
+      $username = $_SESSION['username'];
+      $image_query = "select * from `user_table` where username = '$username'";
+      $image_query_result = mysqli_query($con,$image_query);
+      $row_image = mysqli_fetch_array($image_query_result);
+      $user_image = $row_image['user_image'];
+      echo "<li class='nav-item'>
+      <img src='./user_image/$user_image' alt='' class='profile_img my-4'>
+    </li>";
+    ?>
+
         <li class="nav-item">
-          <img src="../images/milk1.jpg" alt="" class="profile_img my-4">
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="#">Pending orders</a>
+          <a class="nav-link text-light" href="profile.php">Pending orders</a>
         </li>
         <li class="nav-item>">
-          <a class="nav-link text-light" href="#">Edit account</a>
+          <a class="nav-link text-light" href="profile.php?edit_account">Edit account</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#">My orders</a>
+          <a class="nav-link text-light" href="profile.php?my_orders">My orders</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#">Delete account</a>
+          <a class="nav-link text-light" href="profile.php?delete_account">Delete account</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#">Logout</a>
+          <a class="nav-link text-light" href="logout.php">Logout</a>
         </li>
         </ul>
     </div>
-    <div class="col-md-10">
-
+    <div class="col-md-10 text-center">
+    <?php
+      get_user_order_details();
+      if(isset($_GET['edit_account'])){
+        include("./edit_account.php");
+      }
+      if(isset($_GET['my_orders'])){
+        include("./user_orders.php");
+      }
+    ?>
     </div>
 </div>
 
