@@ -325,10 +325,11 @@ function cart_item(){
             ='pending'";
             $result_query_order = mysqli_query($con, $get_order);
             $row_count = mysqli_num_rows($result_query_order);
+            if($row_count>0){
             echo "<h3 class='text-center'>You have <span class ='text-danger'>$row_count </span>
             pending orders</h3>
             <p class='text-center'><a href='profile.php?my_orders' class='text-dark'>Order Details</a></p>";
-          }else{
+            }else{
             echo "<h3 class='text-center'>You have 0
             pending orders</h3>
             <p class='text-center'><a href='../index.php' class='text-dark'>Explore products</a></p>";
@@ -337,4 +338,5 @@ function cart_item(){
       }
     }
   }
+}
 ?>
