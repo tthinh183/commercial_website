@@ -21,11 +21,34 @@
         <tr class="text-center">
             <td><?php echo $number ?></td>
             <td><?php echo $cat_title ?></td>
-            <td><a href='' class='text-light'><i class='fa-solid fa-pen-to-square'></i></a></td>
-            <td><a href='' class='text-light'><i class='fa-solid fa-trash'></i></a></td>
+            <td><a href='index.php?edit_category=<?php echo $cat_id ?>' class='text-light'><i class='fa-solid fa-pen-to-square'></i></a></td>
+            <td><a href='index.php?delete_category=<?php echo $cat_id ?>'   
+            type="button" class="btn text-light" data-toggle="modal" data-target="#exampleModal"><i class='fa-solid fa-trash'></i></td>
         </tr>
         <?php
             }
         ?>
     </tbody>
 </table>
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h4>Are you sure you want to delete this?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <a href="./index.php?view_categories" class="text-light text-decoration-none">No</a>
+        </button>
+        <button type="button" class="btn btn-primary"><a href='index.php?delete_category=<?php echo $cat_id ?>'   
+        class="text-light text-decoration-none" data-toggle="modal" data-target="#exampleModal">Yes</a></button>
+      </div>
+    </div>
+  </div>
+</div>
