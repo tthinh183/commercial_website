@@ -82,10 +82,16 @@
           if(!isset($_SESSION['username'])){
             echo "<li class='nav-item'>
             <a class='nav-link' href='./user_area/user_login.php'>Login</a>
+      </li>
+      <li class='nav-item'>
+            <a class='nav-link' href='./admin_area/admin_registration.php'>Register Admin</a>
       </li>";
           }else{
             echo "<li class='nav-item'>
             <a class='nav-link' href='./user_area/logout.php'>Logout</a>
+      </li>
+      <li class='nav-item'>
+            <a class='nav-link' href='./admin_area/admin_registration.php'>Register Admin</a>
       </li>";
           }
         ?>

@@ -1,6 +1,7 @@
 <?php
     include('../includes/connect.php');
     include('../functions/common_function.php');
+    @session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +17,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- css link -->
     <link rel="stylesheet" href="./style.css">
-    <title>Admin Registration</title>
+    <title>Admin Login</title>
     <style>
         .body{
             overflow: hidden;
@@ -28,7 +29,7 @@
         <h2 class="text-center mb-5">Admin Registration</h2>
         <div class="row d-flex justify-content-center">
             <div class="col-lg-6 col-xl-5">
-                <img src="../images/adminreg.jpg" alt="Admin Registration"
+                <img src="../images/adminlg.jpg" alt="Admin Registration"
                 class="image-fluid">
             </div>
             <div class="col-lg-6 col-xl-4">
@@ -40,29 +41,17 @@
                         class="form-control">
                     </div>
                     <div class="form-outline">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" id="email"
-                        placeholder="Enter your email" required="required"
-                        class="form-control">
-                    </div>
-                    <div class="form-outline">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" name="password" id="password"
                         placeholder="Enter your password" required="required"
                         class="form-control">
                     </div>
                     <div class="form-outline">
-                        <label for="c_password" class="form-label">Confirm Password</label>
-                        <input type="password" name="c_password" id="password"
-                        placeholder="Enter your confirm password" required="required"
-                        class="form-control">
-                    </div>
-                    <div class="form-outline">
                         <input type="submit" class="bg-info py-2 px-3 border-0"
-                        name="admin_registration" value="Register">
-                        <p class="small fw-bold mt-2 pt-1">Do you already have an account? <a href="admin_login.php"
+                        name="admin_login" value="Login">
+                        <p class="small fw-bold mt-2 pt-1">Don't you have an account? <a href="admin_registration.php"
                         class="link-danger">
-                            Login
+                            Register
                         </a></p>
                     </div>
                 </form>
@@ -72,33 +61,20 @@
 </body>
 </html>
 <?php
-    if(isset($_POST['admin_registration'])){
+    if(isset($_POST['admin_login'])){
         $admin_name = $_POST['username'];
-        $admin_email = $_POST['email'];
         $admin_password = $_POST['password'];
-        $hash_password = password_hash($admin_password,PASSWORD_DEFAULT);
-        $c_password = $_POST['c_password'];
-        $admin_ip = getIPAddress();
         //select query
-        $select_query = "select * from `admin_table` where admin_name = '$admin_name'
-        or admin_email = '$admin_email'";
-        $result = mysqli_query($con, $select_query);
-        $row_count = mysqli_num_rows($result);
-        if($row_count>0){
-            echo "<script>alert('Username already exist')</script>";
-        }else if($admin_password!=$c_password){
-            echo "<script>alert('Password do not match')</script>";
-        }else{
-        //insert query
-        $insert_query = "insert into `admin_table` (admin_name,admin_email,admin_password,
-        admin_ip) values ('$admin_name','$admin_email',
-        '$hash_password','$admin_ip')";
-        $execute_sql = mysqli_query($con,$insert_query);
-        if($execute_sql){
-            echo "<script>alert('Data insert successfully')</script>";
-        }else{
-            die(mysqli_error($con));
-        }
-        }
+        $select_query = "select * from `admin_table` where admin_name = '$admin_name'";
+        $select_result = mysqli_query($con, $select_query);
+        $row_count = mysqli_num_rows($select_result);
+        $row_data = mysqli_fetch_assoc($select_result);
+        $admin_ip =  getIPAddress();
+            $_SESSION['username'] = $admin_name;
+            if(password_verify($admin_password,$row_data['admin_password'])){
+                $_SESSION['username'] = $admin_name;
+                echo "<script>alert('Login successfully')</script>";
+                echo "<script>window.open('index.php','_self')</script>";
     }
+}
 ?>

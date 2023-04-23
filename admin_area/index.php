@@ -29,7 +29,7 @@
                 <nav class="navbar navbar-expand-lg">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="" class="nav-link">Welcome guest</a>
+                            <a href="../index.php" class="nav-link">Welcome</a>
                         </li>
                     </ul>
                 </nav>
@@ -45,9 +45,16 @@
         <div class="row">
             <div class="col-md-12 bg-secondary p-1 d-flex align-items-center">
                 <div class="p-5">
-                    <a href="#"><img src="../images/pineapplejuice.jpg" alt="" class="admin_image"></a>
-                    <p class="text-light text-center">Admin name
-                    </p>
+                    <?php
+                        $select_query = "select * from `admin_table`";
+                        $rs = mysqli_query($con,$select_query);
+                        $row = mysqli_fetch_assoc($rs);
+                        $admin_name = $row['admin_name'];
+                        echo "
+                        <p class='text-light text-center'>$admin_name
+                        </p>";
+                    ?>
+                    
                 </div>
                 <!-- button*10>a.nav-link.text-light.bg-info.my-1 -->
                 <div class="button text-center">
@@ -60,7 +67,7 @@
                     <button><a href="index.php?list_orders" class="nav-link text-light bg-info my-1">All Orders</a></button>
                     <button><a href="index.php?list_payments" class="nav-link text-light bg-info my-1">All Payments</a></button>
                     <button><a href="index.php?list_users" class="nav-link text-light bg-info my-1">List Users</a></button>
-                    <button><a href="" class="nav-link text-light bg-info my-1">Logout</a></button>
+                    <button><a href="logout.php" class="nav-link text-light bg-info my-1">Logout</a></button>
                 </div>
             </div>
         </div>
