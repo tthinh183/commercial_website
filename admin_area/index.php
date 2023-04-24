@@ -1,6 +1,7 @@
 <?php
     include('../includes/connect.php');
     include('../functions/common_function.php');
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,12 +47,13 @@
             <div class="col-md-12 bg-secondary p-1 d-flex align-items-center">
                 <div class="p-5">
                     <?php
-                        $select_query = "select * from `admin_table`";
+                        $admin_name = $_SESSION['username'];
+                        $select_query = "select * from `admin_table` where admin_name = '$admin_name'";
                         $rs = mysqli_query($con,$select_query);
                         $row = mysqli_fetch_assoc($rs);
-                        $admin_name = $row['admin_name'];
+                        $admin_name_display = $row['admin_name'];
                         echo "
-                        <p class='text-light text-center'>$admin_name
+                        <p class='text-light text-center'>$admin_name_display
                         </p>";
                     ?>
                     
